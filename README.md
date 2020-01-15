@@ -2,7 +2,7 @@
 
 Auto Deployment of high availability web app using Cloudformation.
 
-URL: http://udagr-http://udagr-webap-ep3wj8v774r5-1147919459.us-west-2.elb.amazonaws.com/
+URL: http://udagr-webap-bfogsd7huer9-642157293.us-west-2.elb.amazonaws.com/
 
 Infrastructure Diagram: https://www.lucidchart.com/invitations/accept/4a400497-db8c-4545-a192-0746e797b4a2
 
