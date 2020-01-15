@@ -141,7 +141,6 @@ Resources:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
       AutoScalingGroupName: String
-      DesiredCapacity: "4"
       HealthCheckGracePeriod: 3
       LaunchConfigurationName:
         Ref: WebServerLaunchConfiguration
@@ -152,7 +151,7 @@ Resources:
       VPCZoneIdentifier:
         - Fn::ImportValue: !Sub "${EnvironmentName}-PRI-SUBNETS"
 
-  WebAppLoadBalancing:
+  WebAppLoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       SecurityGroups:
@@ -169,7 +168,7 @@ Resources:
           TargetGroupArn:
             Ref: WebAppTargetGroup
       LoadBalancerArn:
-        Ref: WebAppLoadBalancing
+        Ref: WebAppLoadBalancer
       Port: "80"
       Protocol: HTTP
 
@@ -199,3 +198,14 @@ Resources:
       VpcId:
         Fn::ImportValue:
           Fn::Sub: "${EnvironmentName}-VPCID"
+
+Outputs:
+  WebAppLoadBalancer:
+    Description: A reference to LoadBalancer DNS name
+    Value: !Join
+      - ""
+      - - "http://"
+        - !GetAtt WebAppLoadBalancer.DNSName
+
+    Export:
+      Name: !Sub ${EnvironmentName}-LoadBalancer-DNS
